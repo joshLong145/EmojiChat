@@ -1,0 +1,77 @@
+{% block body %}
+{% if session['logged_in'] %}
+<html>
+	
+	<head>
+	    	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+	    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	    	<!--- bootstrap -->
+	    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>  
+	<style>
+		h1 { 
+			color: #FAEBD7; font-family: "Great Vibes", cursive; font-size: 100px; 
+			line-height: 160px; font-weight: normal; 
+			margin-bottom: 0px; margin-top: 40px; 
+			text-align: center; text-shadow: 0 1px 1px #fff; }
+
+		p { color: #FAEBD7; 
+			font-size: 29px; 
+			font-family: "Libre Baskerville", serif; 
+			line-height: 45px; 
+			text-align: center; text-shadow: 0 1px 1px #fff; 
+			padding-top: 20px; }
+
+		p.byline { font-style: italic; color: #B6B6B6; font-size: 24px; margin-top: 20px; text-align: center; text-shadow: 0 1px 1px #fff; }
+		a {
+    		display: block;
+    		color: white;
+    		text-align: center;
+    		padding: 14px 16px;
+    		text-decoration: none;
+		}
+
+		body{
+			background: #39CCCC;
+		}
+
+		a:hover {
+    		background-color: #111;
+		}
+	</style>)
+
+	<body>
+		<nav>
+  	    	<a href="/">Chat</a>
+	    	<a href="/logout">Logout</a>
+    	</nav>
+		<h1> About us </h1>
+		<p>
+			Emoji chat is an application developed for
+			linguistic research, chat is restricted to only
+			visual communication (emoji's and GIFs)
+		</p>
+	</body>
+
+</html>
+{%else%}
+ <html> 
+	<style>
+		p { color: #685206; font-family: 'Helvetica Neue', sans-serif; font-size: 14px; line-height: 24px; margin: 0 0 24px; text-align: justify; text-justify: inter-word; }
+		
+		body{
+			background: #39CCCC;
+		}
+
+	</style>)
+
+	<body>
+		<p>
+			Please log in to view this data
+		</p>
+	</body>
+
+</html>
+{% endif %}
+{% endblock %}

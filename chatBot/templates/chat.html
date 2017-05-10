@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title> emoji Room </title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <!--- emojione -->
+    <script src="https://cdn.jsdelivr.net/emojione/2.2.7/lib/js/emojione.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/emojione/2.2.7/assets/css/emojione.min.css"/>
+    <!--- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>    
+    
+	<style>
+		ol {
+    		background: #0074D9;
+    		padding: 20px;
+		}
+
+		ul {
+    		background: ##0074D9;
+   		 	padding: 20px;
+			padding-top: 20px;
+			height: 300px;
+			overflow-y: auto
+		}
+
+		ol li {
+    		background: #39CCCC;
+    		padding: 5px;
+   	 		margin-left: 35px;
+		}
+
+		ul li {
+   	 		background: #7FDBFF;
+   			margin: 5px;
+		}
+		body{
+			background: #39CCCC;
+		}
+		div{
+			padding-bottom: 10px;
+		}
+		a {
+    			display: block;
+    			color: white;
+    			text-align: center;
+    			padding: 14px 16px;
+    			text-decoration: none;
+		}
+
+		/* Change the link color to #111 (black) on hover */
+		 a:hover {
+    			background-color: #111;
+		}
+    </style>
+ 
+    <script type="text/javascript">
+        // handles client connection to the server, establishing an asycronous connection with the server
+        $(document).ready(function() {
+            var socket = io.connect('http://127.0.0.1:4000');
+            // session var storing users desried screen name passed to template 
+            var user = '{{user}}';
+            socket.on('connect', function() {
+                socket.send(' has connected!');
+            });
+            //function for handling messages sent to the server
+            socket.on('message', function(msg) {
+                var output = emojione.toImage(msg);
+                $("#messages").append('<li class="list-group-item active">'+output+'</li>');
+    	        $('#messages').animate({scrollTop: $('#messages').prop("scrollHeight")}, 500);
+                console.log('Received message');
+            });
+        	// defining on click for each button
+        	function encodeText(text){
+        		socket.send(emojione.toImage(text));	
+        	}
+	        // image encoding for each button ( possibly refactor to make more efficient)
+    	    $('#smile').on('click',function(){ encodeText(":smile:"); });
+    	    $('#angry').on('click',function(){ encodeText(":rage:"); });	
+    	    $('#frown').on('click',function(){ encodeText(":frowning2:"); });	
+    	    $('#laugh').on('click',function(){ encodeText(":joy:"); });	
+    	
+            var smile_image = emojione.toImage(":smile:");
+            document.getElementById('smile').innerHTML = smile_image;
+    	
+    	    var rage_image = emojione.toImage(":rage:");
+            document.getElementById('angry').innerHTML = rage_image;
+    	
+    	    var frown_image = emojione.toImage(":frowning2:");
+            document.getElementById('frown').innerHTML = frown_image;
+    	
+    	    var laugh_image = emojione.toImage(":joy:");
+            document.getElementById('laugh').innerHTML = laugh_image;
+    });
+    </script>
+    <body> 
+    <div>
+     <nav>
+  	    <a href="/about">About</a>
+	    <a href="/logout">Logout</a>
+    </nav>
+    </div>
+    <div>
+	<ul  id="messages"></ul> 
+    </div>
+    <div>
+    	<button type="button" class="btn btn-primary" id = "smile"></button>
+    	<button type="button" class="btn btn-primary" id = "frown"></button>
+    	<button type="button" class="btn btn-primary" id = "angry"></button>
+    	<button type="button" class="btn btn-primary" id = "laugh"></button>
+    </div>
+</body>
+</html>

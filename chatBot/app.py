@@ -1,4 +1,4 @@
-from flask_socketio import SocketIO, send
+from flask_socketio import SocketIO, send, join_room
 from flask import Flask, flash, redirect, render_template, request, session, abort,url_for
 import os
 import exception_handling

@@ -57,7 +57,7 @@
     </style>
  
     <script type="text/javascript">
-        // handles client connection to the server, establishing an asycronous connection with the server
+        // handles client connection, establishing an asycronous connection with the server
         $(document).ready(function() {
             var socket = io.connect('http://127.0.0.1:4000');
             // session var storing users desried screen name passed to template 
@@ -94,12 +94,14 @@
     	    var laugh_image = emojione.toImage(":joy:");
             document.getElementById('laugh').innerHTML = laugh_image;
     });
+    // END OF JAVASCRIPT
     </script>
     <body> 
     <div>
      <nav>
   	    <a href="/about">About</a>
 	    <a href="/logout">Logout</a>
+        <a> Rooms</a>
     </nav>
     </div>
     <div>
